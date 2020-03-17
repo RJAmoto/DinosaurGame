@@ -64,8 +64,7 @@ public class MenuState extends State{
         
         g2d.draw(quit);
         g.drawString("QUIT", quit.x+27,quit.y+23);
-        
-        
+ 
     }
     
 }

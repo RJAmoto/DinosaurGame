@@ -17,6 +17,8 @@ public class Assets {
     public static BufferedImage sky;
     public static BufferedImage mountain;
     
+    public static BufferedImage menu;
+    
     
     
     public static void init(){
@@ -26,6 +28,7 @@ public class Assets {
         
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
         SpriteSheet bgSheet = new SpriteSheet(ImageLoader.loadImage("/textures/bgSheet.png"));
+        menu = ImageLoader.loadImage("/textures/menuSheet.png");
          
         dinoRun[0] = sheet.crop(0, size+2, 63, 65);
         dinoRun[1] = sheet.crop(0,size*2+2, 63,65);
