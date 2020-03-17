@@ -14,12 +14,14 @@ public class ObstacleManager {
     private ArrayList<Obstacle> obstacle;
     Rectangle obsRect;
     private ArrayList<Rectangle> rectList;
+    private ArrayList<Integer> idList;
     
     public ObstacleManager(Background ground){
         
         this.ground = ground;
         obstacle = new ArrayList<Obstacle>();
         rectList = new ArrayList<Rectangle>();
+        idList = new ArrayList<Integer>();
         
         obsRect = new Rectangle();
         
@@ -28,14 +30,16 @@ public class ObstacleManager {
     public void tick(){
         
         for(int x = 0; x < obstacle.size(); x++){
-            
+
             Obstacle ob = obstacle.get(x);
             obstacle.get(x).setSpeed(ground.getSpeed());
             Rectangle rect = (ob.getObsBounds());
             
+            
             if(ob.getX()<=-64){
                 obstacle.remove(ob);
                 rectList.remove(rect);
+                idList.remove(idList.get(0));
             }
             ob.tick();
         }
@@ -45,13 +49,19 @@ public class ObstacleManager {
     public void render(Graphics g){
         for(int x = 0; x < obstacle.size(); x++){
             Obstacle ob = obstacle.get(x);
-            ob.render(g);
+            if(ob.getId()<3){
+                ob.render(g);
+            }
+            else if(ob.getId()==3){
+                ob.render2(g);
+            }
         }
     }
     
     public void addObstacle(Obstacle obs){
         obstacle.add(obs);
         rectList.add(obs.getObsBounds());
+        idList.add(obs.getId());
     }
  
     public Obstacle getLastObstacle(){

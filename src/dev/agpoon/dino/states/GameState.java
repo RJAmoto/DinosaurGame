@@ -106,13 +106,13 @@ public class GameState extends State{
         rand = (int)(Math.random()*100);
         
         if(rand<=50){
-            obstacleManager.addObstacle(new Obstacle(Assets.cactus, ground.getSpeed(), 150));
+            obstacleManager.addObstacle(new Obstacle(Assets.cactus, ground.getSpeed(), 150, 2));
         }
         else if(rand<=89&&rand>49){
-            obstacleManager.addObstacle(new Obstacle(Assets.tree, ground.getSpeed(), 150));
+            obstacleManager.addObstacle(new Obstacle(Assets.tree, ground.getSpeed(), 150, 2));
         }
         else if(rand>90){
-            obstacleManager.addObstacle(new Obstacle(Assets.pterodactyl[0], random(10)+ground.getSpeed(), 120));
+            obstacleManager.addObstacle(new Obstacle(Assets.pterodactyl[0], random(10)+ground.getSpeed(), 120,3));
         }
     }
     
