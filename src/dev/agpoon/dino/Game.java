@@ -4,7 +4,9 @@ package dev.agpoon.dino;
 import dev.agpoon.dino.display.Display;
 import dev.agpoon.dino.gfx.Assets;
 import dev.agpoon.dino.input.KeyManager;
+import dev.agpoon.dino.input.MouseManager;
 import dev.agpoon.dino.states.GameState;
+import dev.agpoon.dino.states.MenuState;
 import dev.agpoon.dino.states.State;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -22,6 +24,10 @@ public class Game implements Runnable{
     int height;
     
     private KeyManager keymanager;
+    private MouseManager mousemanager;
+    
+    State gameState ;
+    State menuState;
     
     //Constructor
     public Game(String title, int width, int height){
@@ -31,7 +37,12 @@ public class Game implements Runnable{
         this.height = height;
         
          keymanager = new KeyManager();
+         mousemanager = new MouseManager();
 
+    }
+    
+    public Game(){
+        
     }
     
     
@@ -78,14 +89,22 @@ public class Game implements Runnable{
         display = new Display(title, width, height);
         
         display.getFrame().addKeyListener(keymanager);
+        display.getFrame().addMouseListener(mousemanager);
+        display.getFrame().addMouseMotionListener(mousemanager);
+        display.getCanvas().addMouseListener(mousemanager);
+        display.getCanvas().addMouseMotionListener(mousemanager);
         
-        State gameState = new GameState(this);
-        State.setState(gameState);
+        gameState = new GameState(this);
+        menuState = new MenuState(this);
+        State.setState(menuState);
       
     }
     
     public KeyManager getKeyManager(){
         return keymanager;
+    }
+    public MouseManager getMouseManager(){
+        return mousemanager;
     }
     
     public void tick(){
@@ -126,6 +145,10 @@ public class Game implements Runnable{
             t = new Thread(this);
             t.start();
         }
+    }
+    
+    public void setGame(){
+        State.setState(gameState);
     }
     
     public synchronized void stop(){
