@@ -56,9 +56,7 @@ public class Game implements Runnable{
     public int getHeight(){
         return height;
     }
-    
-    
-    
+
     @Override
     public void run() {
         init();
