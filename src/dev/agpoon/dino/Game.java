@@ -3,11 +3,14 @@ package dev.agpoon.dino;
 
 import dev.agpoon.dino.display.Display;
 import dev.agpoon.dino.gfx.Assets;
+import dev.agpoon.dino.handler.ObstacleManager;
 import dev.agpoon.dino.input.KeyManager;
 import dev.agpoon.dino.input.MouseManager;
 import dev.agpoon.dino.states.GameState;
+import dev.agpoon.dino.states.HelpState;
 import dev.agpoon.dino.states.MenuState;
 import dev.agpoon.dino.states.State;
+import dev.agpoon.dino.ui.Scoring;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -28,6 +31,7 @@ public class Game implements Runnable{
     
     State gameState ;
     State menuState;
+    State helpState;
     
     //Constructor
     public Game(String title, int width, int height){
@@ -44,9 +48,7 @@ public class Game implements Runnable{
     public Game(){
         
     }
-    
-    
-    
+
     public int getWidth(){
         return width;
     }
@@ -96,6 +98,8 @@ public class Game implements Runnable{
         
         gameState = new GameState(this);
         menuState = new MenuState(this);
+        helpState = new HelpState(this);
+        
         State.setState(menuState);
       
     }
@@ -108,7 +112,6 @@ public class Game implements Runnable{
     }
     
     public void tick(){
-        
         keymanager.tick();
         
         if(State.getCurrentState()!=null){
@@ -149,6 +152,8 @@ public class Game implements Runnable{
     
     public void setGame(){
         State.setState(gameState);
+        GameState.gameOver = false;
+        Scoring.restart();
     }
     
     public synchronized void stop(){
@@ -164,4 +169,12 @@ public class Game implements Runnable{
             }
         }
     }   
+
+    public void setMenu() {
+        State.setState(menuState);
+    }
+
+    public void setHelp() {
+        State.setState(helpState);
+    }
 }

@@ -9,13 +9,23 @@ import dev.agpoon.dino.ui.Scoring;
 import dev.agpoon.dino.worlds.Background;
 import dev.agpoon.dino.worlds.Obstacle;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GameState extends State{
     
+    private Color color;
+    
+    private Color backColor;
+    public static boolean gameOver;
     private float speed = 1;
     private int sec;
+    
+    int a = -40;
     
     private Player player;
     
@@ -28,20 +38,25 @@ public class GameState extends State{
     private Scoring score;
  
     int rand;
+    
+    private Rectangle restart = new Rectangle((game.getWidth()/2)-110, 160, 100, 30);
+    private Rectangle back = new Rectangle((game.getWidth()/2)+15, 160, 100, 30);
 
     public GameState(Game game) {
-        super(game);
         
+        super(game);
+        gameOver = false;
         player = new Player(game, 60, 150);
         ground = new Background(Assets.ground, (int)speed*3, 200);
         sky = new Background(Assets.sky, (int)speed, 0);
-        mountain = new Background(Assets.mountain, (int)(speed*1.8f), 120);
+        mountain = new Background(Assets.mountain, (int)(speed*2), 120);
         obstacleManager = new ObstacleManager(ground);
         score = new Scoring();
         
         sec=0;
-
-        createObstacle();
+        
+        color = Color.WHITE;
+        
     }
     
     public boolean collision(){
@@ -59,6 +74,11 @@ public class GameState extends State{
        
     @Override
     public void tick() {
+
+        
+        System.out.println(game.getMouseManager().getMx()+"   "+game.getMouseManager().getMy());
+                
+        if(!gameOver){
         sec++;
         mountain.tick();
         sky.tick();
@@ -73,7 +93,7 @@ public class GameState extends State{
         }
         
         if(collision()){
-            game.stop();
+                GameState.setGameOver(true);
         }
 
         if(sec>=50){
@@ -84,18 +104,110 @@ public class GameState extends State{
             }
         }
         obstacleManager.tick();
+        }
+        else if(gameOver){
+            if(Scoring.getScore()>score.getHighscore()){
+                score.setHighscore();
+                score.newHighScore();
+            }
+            
+            obstacleManager.tick();
+            //RESTART BUTTON
+                if(game.getMouseManager().getMx()>=140&&game.getMouseManager().getMx()<=240
+                    &&game.getMouseManager().getMy()>=159&&game.getMouseManager().getMy()<=190){
+            
+                shiftGray();
+            
+                if(game.getMouseManager().isLeftPressed()){
+                    
+                game.setGame();
+                obstacleManager.restart();
+                a = 0;
+                }
+            }
+                //BACK BUTTON
+                else if(game.getMouseManager().getMx()>=265&&game.getMouseManager().getMx()<=365
+                    &&game.getMouseManager().getMy()>=160&&game.getMouseManager().getMy()<=190){
+                    backGray();
+                    
+                    if(game.getMouseManager().isLeftPressed()){
+                        try{
+                            Thread.sleep(100);
+                            game.setMenu();
+                            GameState.gameOver = false;
+                            obstacleManager.restart();
+                            a = 0;
+                        } catch (InterruptedException ex) {
 
+                        }
+                        
+                    }
+            }
+            else{
+                shiftWhite();
+                backWhite();
+            }
+        }
     }
 
     @Override
     public void render(Graphics g) {
-        sky.render(g);
-        mountain.render(g);
-        ground.render(g);
-        player.render(g);
-        obstacleManager.render(g);
-        g.setColor(Color.WHITE);
-        score.render(g);
+        
+        if(!gameOver){
+            sky.render(g);
+            mountain.render(g);
+            ground.render(g);
+            player.render(g);
+            obstacleManager.render(g);
+                        
+            g.setColor(Color.WHITE);
+            score.render(g);
+        }
+        else if(gameOver){
+            int newSkyX = (int)sky.getX();
+            int newMountainX = (int)mountain.getX();
+            int newMountainY = (int)mountain.getY();
+            int newGroundX = (int)ground.getX();
+            int newGroundY = (int)ground.getY();
+            int newPlayerX = player.getPlayerX();
+            int newPlayerY = player.getPlayerY();
+           
+            score.stop();
+           
+            g.drawImage(Assets.sky, newSkyX, 0, null);
+            g.drawImage(Assets.mountain, newMountainX, newMountainY, null);
+            g.drawImage(Assets.ground, newGroundX, newGroundY, null);
+            g.drawImage(Assets.dinoRunGameOver, newPlayerX, newPlayerY, null);
+            obstacleManager.render(g);
+           
+           g.setColor(Color.WHITE);
+           score.render(g);
+           
+           if(a<120){
+                a+=speed;
+           }
+           else{
+                a = 120;
+                
+                g.setColor(color);
+                Graphics2D g2d = (Graphics2D) g;
+                g.setFont(new Font("Alien Wars", Font.BOLD, 20));
+                g2d.draw(restart);
+                g.drawString("RESTART", restart.x+10,restart.y+23);
+                
+                g.setColor(backColor);
+                g.drawString("BACK", back.x+25,back.y+23);
+
+                g2d.draw(back);
+         
+           }
+           
+           g.setColor(Color.RED);
+           g.setFont(new Font("Forte", Font.BOLD, 70));
+           a+=speed;
+           g.drawString("You Lose", 100, a);
+           
+        }
     }  
     
     public void setObsSpeed(){
@@ -125,5 +237,27 @@ public class GameState extends State{
         else{
             return a;
         }
+    }
+    public static void setGameOver(boolean gameOver){
+        GameState.gameOver = gameOver;
+    }
+    
+    public static boolean getGameOver(){
+        return gameOver;
+    }
+    
+    private void shiftGray() {
+         color = Color.GRAY;
+    }
+
+    private void shiftWhite() {
+        color = Color.WHITE;
+    }
+    private void backGray() {
+         backColor = Color.GRAY;
+    }
+
+    private void backWhite() {
+        backColor = Color.WHITE;
     }
 }

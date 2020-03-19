@@ -11,9 +11,11 @@ import java.awt.image.BufferedImage;
 
 public class Background extends World{
     private BufferedImage image;
+    private int yRes;
     
     public Background(BufferedImage image, int speed, int y){
         this.y = y;
+        yRes = y;
         x = 0;
         this.image = image;
         this.speed = speed;
@@ -43,5 +45,14 @@ public class Background extends World{
     @Override
     public float getX(){
         return x;
+    }
+    public void restart(){
+        this.x = 0;
+        this.y = yRes;
+    }
+
+    @Override
+    public float getY() {
+        return y;
     }
 }

@@ -7,11 +7,10 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-
 public class Obstacle extends World{
     int id;
     private Rectangle bounds;
-    int rectWidth = 20, rectHeight = 30;
+    int rectWidth = 20, rectHeight = 40;
     
     private BufferedImage image;
     private Animation fly;
@@ -59,10 +58,19 @@ public class Obstacle extends World{
         return fly.getCurrentImage();
     }
     
+    public BufferedImage getImage(){
+        return image;
+    }
+    
     
     @Override
     public float getX(){
         return x;
+    }
+    
+    @Override
+    public float getY(){
+        return y;
     }
     
     public void setX(float x){

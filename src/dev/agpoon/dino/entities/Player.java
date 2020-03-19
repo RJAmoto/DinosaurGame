@@ -81,7 +81,7 @@ public class Player extends Entity{
         }
         else if(game.getKeyManager().crouch){
             rectheight = 1;
-            rectY+=37;
+            rectY = 200;
         }
     }
     

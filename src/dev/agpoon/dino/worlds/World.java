@@ -23,4 +23,6 @@ public abstract class World {
         currentObs = obs;
     }
     public abstract float getX();
+    
+    public abstract float getY();
 }

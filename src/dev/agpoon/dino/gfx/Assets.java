@@ -19,6 +19,9 @@ public class Assets {
     
     public static BufferedImage menu;
     
+    public static BufferedImage dinoRunGameOver;
+    public static BufferedImage dinoCrouchGameOver;
+    
     
     
     public static void init(){
@@ -37,12 +40,15 @@ public class Assets {
         dinoCrouch[0] = sheet.crop(size, size+2, 64, 65);
         dinoCrouch[1] = sheet.crop(size, size*2+2, 64, 65);
         dinoCrouch[2] = sheet.crop(size, size*3+4, 64, 63);
+
+        dinoRunGameOver = sheet.crop((size*2)+3, size*3, 60, 65);
+        dinoCrouchGameOver = sheet.crop(size*2, size*3, 63, 65);
         
-        pterodactyl[0] = sheet.crop(size*3, 0, size, size);
-        pterodactyl[1] = sheet.crop(size*2, size, size, size);
-        pterodactyl[2] = sheet.crop(size*3, size, size, size);
-        pterodactyl[3] = sheet.crop(size*2, size*2, size, size);
-        pterodactyl[4] = sheet.crop(size*3, size*2, size, size);
+        pterodactyl[0] = sheet.crop((size*3)+5, 0, size-5, size);
+        pterodactyl[1] = sheet.crop((size*2)+5, size, size-5, size);
+        pterodactyl[2] = sheet.crop((size*3)+5, size, size-5, size);
+        pterodactyl[3] = sheet.crop((size*2)+5, size*2, size-5, size);
+        pterodactyl[4] = sheet.crop((size*3)+5, size*2, size-5, size);
         
          
         tree = sheet.crop(size, 0, size, size);
