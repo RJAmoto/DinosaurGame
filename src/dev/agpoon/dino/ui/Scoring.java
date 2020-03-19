@@ -4,12 +4,15 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Scoring extends UI{
+    
+    boolean flag = false;
     
     private static int score;
     private static int limit;
@@ -19,14 +22,24 @@ public class Scoring extends UI{
     private int speed = 200;
     Font font;
     
+    File file;
+    private String directory = "C:\\Dinosaur";
+    private String dino = "C:\\Dinosaur\\highscore.txt";
+    
     public Scoring(){
+        
+        file = new File(directory);
+        file.mkdir();
+        file = new File(dino);
+        
         try {
-            File file = new File("C:\\Users\\kev\\Documents\\NetBeansProjects\\Dinosaur\\res\\textures\\highscore.txt");
-            Scanner sc = new Scanner(file);
-            highScore = Integer.parseInt(sc.next());
-        } catch (FileNotFoundException ex) {
-            
+            if(file.createNewFile()){
+                Scanner sc = new Scanner(file);
+                highScore = Integer.parseInt(sc.next());
+            }
+        } catch (IOException ex) {
         }
+            
         score = 0;
         limit = 100;
         
@@ -71,7 +84,7 @@ public class Scoring extends UI{
     }
     public void setHighscore(){
         try {
-            PrintWriter outstream = new PrintWriter("C:\\Users\\kev\\Documents\\NetBeansProjects\\Dinosaur\\res\\textures\\highscore.txt");
+            PrintWriter outstream = new PrintWriter(dino);
             outstream.println(score);
             outstream.close();
             
@@ -86,13 +99,12 @@ public class Scoring extends UI{
     public void newHighScore(){
         try {
             
-            File file = new File("C:\\Users\\kev\\Documents\\NetBeansProjects\\Dinosaur\\res\\textures\\highscore.txt");
             Scanner sc;
             sc = new Scanner(file);
             highScore = Integer.parseInt(sc.next());
             
         } catch (FileNotFoundException ex) {
-
+            System.out.println("End of the world");
         }
 
     }
