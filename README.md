@@ -2,6 +2,12 @@
 
 This game is made using netbeans IDE inspired by the google chrome's jumping dinosaur, I'ts an upgraded version considered as 2
 
+<img src = "screenshot/1.jpg" width = "50%" height = "50%">
+<img src = "screenshot/2.jpg" width = "50%" height = "50%">
+<img src = "screenshot/3.jpg" width = "50%" height = "50%">
+<img src = "screenshot/4.jpg" width = "50%" height = "50%">
+
+
 ### IDE's
 
     This is a list of software's or IDE where you could run this game
