@@ -10,7 +10,7 @@ This game is made using netbeans IDE inspired by the google chrome's jumping din
 >Eclipse IDE
 >Any java IDE's
 
-### Installiation
+### Installation
     1.  In netbeans IDE, save them in a folder and save it on your netbeans project where you could access it easily or save them anywhere you want
     2.  Click open projects.
     3.  Click the project and test it on your IDE
