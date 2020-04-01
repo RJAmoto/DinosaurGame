@@ -54,7 +54,10 @@ public class ObstacleManager {
             }
         }
         else if(GameState.gameOver){
-            
+            for(int x = 0; x < obstacle.size(); x++){
+                Obstacle ob = obstacle.get(x);
+                ob.restart();
+            }
         }
     }
     

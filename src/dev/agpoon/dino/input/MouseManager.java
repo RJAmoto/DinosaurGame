@@ -9,8 +9,6 @@ import java.awt.event.MouseMotionListener;
 public class MouseManager implements MouseListener, MouseMotionListener
 {
     
-    private Game game = new Game();
-    
     private boolean left, right;
     
     int mx;

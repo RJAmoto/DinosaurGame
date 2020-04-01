@@ -46,9 +46,11 @@ public class Background extends World{
     public float getX(){
         return x;
     }
-    public void restart(){
+    public void restart(int speed){
         this.x = 0;
         this.y = yRes;
+        this.speed = speed;
+        
     }
 
     @Override

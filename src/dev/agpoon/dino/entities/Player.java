@@ -31,13 +31,14 @@ public class Player extends Entity{
     public Player(Game game,int x, int y) {
         
         super(x, y);
+        animSpeed = 166;
         
         this.game = game;
         this.width = game.getWidth();
         this.height = game.getHeight();
         
-        crouch = new Animation(166, Assets.dinoCrouch);
-        run = new Animation(166, Assets.dinoRun);
+        crouch = new Animation(animSpeed, Assets.dinoCrouch);
+        run = new Animation(animSpeed, Assets.dinoRun);
         
         playerLevel =  1;
         
@@ -118,5 +119,8 @@ public class Player extends Entity{
     public int getPlayerY(){
         return (int)y;
     }
-    
+    public void restart(){
+        run.restart();
+        crouch.restart();
+    }
 }

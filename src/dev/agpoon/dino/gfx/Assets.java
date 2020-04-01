@@ -31,7 +31,7 @@ public class Assets {
         
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
         SpriteSheet bgSheet = new SpriteSheet(ImageLoader.loadImage("/textures/bgSheet.png"));
-        menu = ImageLoader.loadImage("/textures/menuSheet.png");
+        menu = ImageLoader.loadImage("/textures/MenuSheet.png");
          
         dinoRun[0] = sheet.crop(0, size+2, 63, 65);
         dinoRun[1] = sheet.crop(0,size*2+2, 63,65);

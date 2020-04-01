@@ -25,20 +25,18 @@ public class Scoring extends UI{
     File file;
     private String directory = "C:\\Dinosaur";
     private String dino = "C:\\Dinosaur\\highscore.txt";
+    Scanner sc;
     
-    public Scoring(){
+    public Scoring() throws FileNotFoundException, IOException{
         
         file = new File(directory);
         file.mkdir();
         file = new File(dino);
         
-        try {
-            if(file.createNewFile()){
-                Scanner sc = new Scanner(file);
-                highScore = Integer.parseInt(sc.next());
-            }
-        } catch (IOException ex) {
-        }
+            file.createNewFile();
+                sc = new Scanner(file);
+           
+        highScore = Integer.parseInt(sc.next());
             
         score = 0;
         limit = 100;
@@ -107,5 +105,8 @@ public class Scoring extends UI{
             System.out.println("End of the world");
         }
 
+    }
+    public void restartLimit(){
+        limit = 100;
     }
 }

@@ -41,4 +41,8 @@ public class Animation {
     public void addSpeed(int speed){
         this.speed -= speed;
     }
+    
+    public void restart(){
+        speed = 166;
+    }
 }

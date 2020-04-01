@@ -54,6 +54,10 @@ public class Obstacle extends World{
         //g.fillRect((int)bounds.getX(), (int)bounds.getY(), rectWidth, rectHeight);
     }
     
+    public void restart(){
+        speed = defSpeed;
+    }
+    
     public BufferedImage getCurrentImage(){
         return fly.getCurrentImage();
     }

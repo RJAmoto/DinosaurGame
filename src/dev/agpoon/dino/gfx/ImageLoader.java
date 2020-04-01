@@ -1,4 +1,3 @@
-
 package dev.agpoon.dino.gfx;
 
 import java.awt.image.BufferedImage;

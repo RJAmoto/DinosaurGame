@@ -13,6 +13,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,7 +43,7 @@ public class GameState extends State{
     private Rectangle restart = new Rectangle((game.getWidth()/2)-110, 160, 100, 30);
     private Rectangle back = new Rectangle((game.getWidth()/2)+15, 160, 100, 30);
 
-    public GameState(Game game) {
+    public GameState(Game game) throws IOException {
         
         super(game);
         gameOver = false;
@@ -75,9 +76,6 @@ public class GameState extends State{
     @Override
     public void tick() {
 
-        
-        System.out.println(game.getMouseManager().getMx()+"   "+game.getMouseManager().getMy());
-                
         if(!gameOver){
         sec++;
         mountain.tick();
@@ -114,14 +112,20 @@ public class GameState extends State{
             obstacleManager.tick();
             //RESTART BUTTON
                 if(game.getMouseManager().getMx()>=140&&game.getMouseManager().getMx()<=240
-                    &&game.getMouseManager().getMy()>=159&&game.getMouseManager().getMy()<=190){
+                    &&game.getMouseManager().getMy()>=159&&game.getMouseManager().getMy()<=190||game.getKeyManager().jump){
             
                 shiftGray();
             
-                if(game.getMouseManager().isLeftPressed()){
+                if(game.getMouseManager().isLeftPressed()||game.getKeyManager().jump){
                     
                 game.setGame();
                 obstacleManager.restart();
+                ground.restart((int)speed*3);
+                sky.restart((int)speed);
+                mountain.restart((int)speed*2);
+                score.restartLimit();
+                player.restart();
+                
                 a = 0;
                 }
             }

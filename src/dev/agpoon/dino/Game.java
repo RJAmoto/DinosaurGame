@@ -13,6 +13,9 @@ import dev.agpoon.dino.states.State;
 import dev.agpoon.dino.ui.Scoring;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Game implements Runnable{
     
@@ -59,7 +62,11 @@ public class Game implements Runnable{
 
     @Override
     public void run() {
-        init();
+        try {
+            init();
+        } catch (IOException ex) {
+            
+        }
         
         int fps = 60;
         double TimePerTick = 1000000000/fps;
@@ -84,7 +91,7 @@ public class Game implements Runnable{
     }
     
     //initializes everything
-    public void init(){
+    public void init() throws IOException{
         Assets.init();
         display = new Display(title, width, height);
         

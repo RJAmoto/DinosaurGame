@@ -6,10 +6,11 @@ public abstract class World {
     
     protected int x, y;
     protected int speed;
+    protected int defSpeed;
     private static Obstacle currentObs;
     
     public World(){
-        
+        defSpeed = speed;
     }
     
     public abstract void tick();
